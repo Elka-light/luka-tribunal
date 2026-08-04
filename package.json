@@ -1,0 +1,44 @@
+{
+  "name": "luka-tribunal",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Plateforme nationale de géolocalisation des tribunaux pour enfants et parquets en République Démocratique du Congo.",
+  "license": "UNLICENSED",
+  "author": "Laloux",
+  "homepage": "https://github.com/Elka-light/luka-tribunal",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Elka-light/luka-tribunal.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Elka-light/luka-tribunal/issues"
+  },
+  "packageManager": "pnpm@11.15.1",
+  "engines": {
+    "node": ">=24.0.0",
+    "pnpm": ">=11.0.0"
+  },
+  "scripts": {
+    "lint": "echo \"Les applications seront configurées ultérieurement\"",
+    "format": "echo \"Formatage à configurer\"",
+    "test": "echo \"Tests à configurer\"",
+    "build": "echo \"Build du monorepo à configurer\"",
+    "dev": "echo \"Lancement du monorepo à configurer\""
+  },
+  "keywords": [
+    "justice",
+    "tribunal",
+    "parquet",
+    "rdc",
+    "congo",
+    "geolocation",
+    "gis",
+    "postgis",
+    "leaflet",
+    "openstreetmap",
+    "adonisjs",
+    "nextjs",
+    "typescript",
+    "react"
+  ]
+}
