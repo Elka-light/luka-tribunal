@@ -2,6 +2,7 @@
 node_modules
 build
 tmp
+database/schema.ts
 
 # Secrets
 .env

@@ -115,7 +115,7 @@ Zod ;
 Leaflet ;
 OpenStreetMap.
 Backend
-AdonisJS 6 ;
+AdonisJS 7 ;
 TypeScript ;
 Lucid ORM ;
 VineJS ;

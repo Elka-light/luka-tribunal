@@ -26,7 +26,7 @@ données fictives identifiées comme telles.
 
 ### Jour 2 — Vendredi 7 août : socle technique
 
-- initialiser Next.js, AdonisJS 6 et TypeScript strict ;
+- initialiser Next.js, AdonisJS 7 et TypeScript strict ;
 - configurer le monorepo, lint, types, tests et build ;
 - configurer PostgreSQL/PostGIS et les migrations réversibles ;
 - implémenter modèles, validation, erreurs API et données de démonstration ;

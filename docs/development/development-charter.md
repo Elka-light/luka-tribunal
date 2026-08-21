@@ -55,7 +55,7 @@ Frontend
     • Leaflet ;
     • OpenStreetMap.
 Backend
-    • AdonisJS 6 ;
+    • AdonisJS 7 ;
     • TypeScript ;
     • Lucid ORM ;
     • VineJS ;
@@ -270,7 +270,7 @@ docs/decisions/
 Exemples :
     • choix de PostGIS ;
     • choix de Next.js ;
-    • choix d’AdonisJS 6 ;
+    • choix d’AdonisJS 7 ;
     • choix de l’hébergement ;
     • méthode d’authentification ;
     • fournisseur cartographique ;

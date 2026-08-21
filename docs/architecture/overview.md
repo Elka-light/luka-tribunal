@@ -10,7 +10,7 @@
 Le produit est un monorepo pnpm composé de deux applications déployables séparément :
 
 - `apps/web` : Next.js, React, TypeScript strict et Tailwind CSS ;
-- `apps/api` : API REST AdonisJS 6, VineJS, Lucid ORM et Japa ;
+- `apps/api` : API REST AdonisJS 7, VineJS, Lucid ORM et Japa ;
 - PostgreSQL/PostGIS : source de vérité des données métier et géographiques.
 
 Le navigateur appelle uniquement l'API. Il n'accède jamais directement à la base.
@@ -46,5 +46,6 @@ et accompagnée d'un audit. Aucun signalement ne publie automatiquement une donn
 Les environnements sont configurés par variables. PostgreSQL n'est pas exposé sur
 Internet. Le développement local utilise Docker Compose et des données fictives.
 Le socle fournit les applications, la connexion PostgreSQL, les migrations, un
-contrôle de santé et la chaîne qualité. Recherche, carte, signalement et administration
-complète restent des incréments suivants.
+contrôle de santé et la chaîne qualité. La recherche, la carte, le signalement et
+l'administration minimale du MVP sont implémentés. La mise en ligne reste conditionnée
+aux décisions d'exploitation, aux données pilotes autorisées et à la recette finale.

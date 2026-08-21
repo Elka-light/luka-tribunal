@@ -31,13 +31,10 @@ un store Redis ou PostgreSQL partagé et isolé est obligatoire. L'authentificat
 pilote ne comprend pas encore MFA ni récupération autonome. Le fournisseur de tuiles
 reçoit l'adresse réseau du visiteur lorsque la carte est chargée.
 
-L'audit des dépendances signale `GHSA-6qvv-pj99-48qm` dans
-`@adonisjs/http-server`, transitivement fourni par AdonisJS 6. Le correctif publié
-nécessite AdonisJS 7, hors de la stack autorisée du MVP. L'application n'accepte
-aucune cible de redirection fournie par l'utilisateur : l'authentification API
-utilise uniquement des chemins constants et les erreurs sont rendues en JSON. Ce
-contrôle réduit l'exploitabilité sans remplacer la mise à niveau. La migration vers
-une version corrigée doit être priorisée dès qu'elle est compatible avec la stack.
+L'API utilise AdonisJS 7 afin d'intégrer le correctif de `GHSA-6qvv-pj99-48qm`.
+L'application n'accepte par ailleurs aucune cible de redirection fournie par
+l'utilisateur : l'authentification API utilise uniquement des chemins constants et
+les erreurs sont rendues en JSON.
 
 ## Revue
 

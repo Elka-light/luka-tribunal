@@ -1,6 +1,6 @@
 # API LUKA TRIBUNAL
 
-API REST AdonisJS 6 du MVP. Elle expose la recherche publique des juridictions,
+API REST AdonisJS 7 du MVP. Elle expose la recherche publique des juridictions,
 la soumission de signalements non nominatifs et les opérations d'administration.
 
 ## Commandes
