@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import "./globals.css";
 import "leaflet/dist/leaflet.css";
 import { Providers } from "./providers";
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
     "Plateforme d’information et d’orientation vers les tribunaux pour enfants en RDC.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="fr" className="h-full antialiased">
       <body className="min-h-full flex flex-col">
