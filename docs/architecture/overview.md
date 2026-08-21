@@ -13,6 +13,10 @@ Le produit est un monorepo pnpm composé de deux applications déployables sépa
 - `apps/api` : API REST AdonisJS 7, VineJS, Lucid ORM et Japa ;
 - PostgreSQL/PostGIS : source de vérité des données métier et géographiques.
 
+Le développement, la CI et les runtimes de déploiement utilisent Node.js 24. Cette
+contrainte est déclarée à la racine et dans chaque application déployable ; `.nvmrc`
+permet d'aligner l'environnement local.
+
 Le navigateur appelle uniquement l'API. Il n'accède jamais directement à la base.
 Les paquets partagés restent réservés à des besoins démontrés afin d'éviter une
 abstraction prématurée.
