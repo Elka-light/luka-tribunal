@@ -1,0 +1,54 @@
+name: Quality
+
+on:
+  pull_request:
+  push:
+    branches: [main, develop]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgis/postgis:16-3.4
+        env:
+          POSTGRES_DB: luka_tribunal_test
+          POSTGRES_USER: luka_test
+          POSTGRES_PASSWORD: test-only-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U luka_test -d luka_tribunal_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      NODE_ENV: test
+      PORT: 3333
+      HOST: 127.0.0.1
+      LOG_LEVEL: silent
+      APP_KEY: test-only-ci-application-key
+      DB_HOST: 127.0.0.1
+      DB_PORT: 5432
+      DB_USER: luka_test
+      DB_PASSWORD: test-only-password
+      DB_DATABASE: luka_tribunal_test
+      CORS_ORIGIN: http://localhost:3000
+      SESSION_DRIVER: memory
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.15.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm --filter api exec node ace migration:run
+      - run: pnpm test
+      - run: pnpm build

@@ -19,11 +19,12 @@
     "pnpm": ">=11.0.0"
   },
   "scripts": {
-    "lint": "echo \"Les applications seront configurées ultérieurement\"",
-    "format": "echo \"Formatage à configurer\"",
-    "test": "echo \"Tests à configurer\"",
-    "build": "echo \"Build du monorepo à configurer\"",
-    "dev": "echo \"Lancement du monorepo à configurer\""
+    "dev": "pnpm --parallel --filter web --filter api dev",
+    "build": "pnpm --filter api build && pnpm --filter web build",
+    "lint": "pnpm --filter api lint && pnpm --filter web lint",
+    "typecheck": "pnpm --filter api typecheck && pnpm --filter web typecheck",
+    "test": "pnpm --filter api test && pnpm --filter web test",
+    "format": "pnpm --filter api format"
   },
   "keywords": [
     "justice",

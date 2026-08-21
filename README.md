@@ -245,7 +245,3 @@ Version du produit : 0.1.0
 Cahier des charges : 0.1
 Dossier d’architecture : en préparation vers la version 1.0
 Dépôt : privé pendant la phase expérimentale
-Ctrl + O
-Entrée
-Ctrl + X
-
