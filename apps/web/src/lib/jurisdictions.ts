@@ -15,7 +15,10 @@ const jurisdictionSchema = z.object({
   longitude: z.coerce.number().min(-180).max(180),
 });
 
-const responseSchema = z.object({ data: z.array(jurisdictionSchema) });
+const responseSchema = z.object({
+  data: z.array(jurisdictionSchema),
+  meta: z.object({ nextOffset: z.number().int().nonnegative().nullable() }),
+});
 const detailSchema = jurisdictionSchema.extend({
   municipality: z.string().nullable(),
   territory: z.string().nullable(),
@@ -43,12 +46,23 @@ export async function searchJurisdictions(filters: {
   if (filters.province) parameters.set("province", filters.province);
   if (filters.city) parameters.set("city", filters.city);
 
-  const response = await fetch(`${apiUrl}/api/v1/jurisdictions?${parameters}`, {
-    headers: { Accept: "application/json" },
-  });
-
-  if (!response.ok) throw new Error("La recherche est momentanément indisponible.");
-  return responseSchema.parse(await response.json()).data;
+  parameters.set("limit", "50");
+  const items: Jurisdiction[] = [];
+  let offset = 0;
+  do {
+    parameters.set("offset", String(offset));
+    const response = await fetch(`${apiUrl}/api/v1/jurisdictions?${parameters}`, {
+      headers: { Accept: "application/json" },
+    });
+    if (!response.ok) throw new Error("La recherche est momentanément indisponible.");
+    const page = responseSchema.parse(await response.json());
+    items.push(...page.data);
+    if (page.meta.nextOffset === null) return items;
+    if (page.meta.nextOffset <= offset || page.meta.nextOffset > 100000) {
+      throw new Error("Trop de résultats. Précisez votre recherche.");
+    }
+    offset = page.meta.nextOffset;
+  } while (true);
 }
 
 export async function getJurisdiction(slug: string): Promise<JurisdictionDetail> {

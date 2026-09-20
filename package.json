@@ -19,6 +19,7 @@
     "pnpm": ">=11.0.0"
   },
   "scripts": {
+    "preview": "node scripts/preview.mjs",
     "dev": "pnpm --parallel --filter web --filter api dev",
     "build": "pnpm --filter api build && pnpm --filter web build",
     "lint": "pnpm --filter api lint && pnpm --filter web lint",

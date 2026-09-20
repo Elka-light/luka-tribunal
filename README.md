@@ -1,3 +1,26 @@
+## Voir le MVP localement
+
+Prérequis : Node.js 24, pnpm 11 et Docker Compose disponible.
+
+```bash
+pnpm install --frozen-lockfile
+pnpm run build
+pnpm run preview
+```
+
+Ouvrir http://localhost:3000. Le lancement prépare une base **fictive et isolée**
+(`luka-preview`, port 55432), applique les migrations et charge la fiche de
+Kinshasa de démonstration. Aucun compte administrateur n'est créé automatiquement.
+Le site et l'API restent accessibles uniquement sur cet ordinateur.
+
+Si pnpm tente une réinstallation alors que les dépendances sont déjà présentes :
+`pnpm --config.verify-deps-before-run=false run preview`.
+
+Ctrl+C arrête les applications. Pour arrêter la base sans supprimer ses données :
+`docker compose -p luka-preview stop`.
+
+Voir [la procédure de préparation du pilote](docs/deployment/deployment-strategy.md).
+
 
 LUKA TRIBUNAL
 

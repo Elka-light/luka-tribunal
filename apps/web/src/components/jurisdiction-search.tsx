@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { z } from "zod";
+import { JurisdictionMap } from "./jurisdiction-map";
 import { searchJurisdictions } from "@/lib/jurisdictions";
 
 const searchSchema = z.object({
@@ -63,6 +64,8 @@ export function JurisdictionSearch() {
           Rechercher
         </button>
       </form>
+
+      {jurisdictions.data && <JurisdictionMap key={JSON.stringify(filters)} jurisdictions={jurisdictions.data} />}
 
       <div className="mt-6" aria-live="polite">
         {jurisdictions.isPending && <p>Chargement des juridictions…</p>}

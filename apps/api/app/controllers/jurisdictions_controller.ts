@@ -28,7 +28,9 @@ export default class JurisdictionsController {
       .where('status', 'published')
       .whereNull('archived_at')
       .orderBy('official_name', 'asc')
-      .limit(filters.limit ?? 20)
+      .orderBy('id', 'asc')
+      .offset(filters.offset ?? 0)
+      .limit((filters.limit ?? 20) + 1)
 
     if (filters.q) {
       query.where((builder) => {
@@ -40,7 +42,12 @@ export default class JurisdictionsController {
     if (filters.province) query.whereILike('province', filters.province)
     if (filters.city) query.whereILike('city', filters.city)
 
-    return { data: await query }
+    const rows = await query
+    const limit = filters.limit ?? 20
+    return {
+      data: rows.slice(0, limit),
+      meta: { nextOffset: rows.length > limit ? (filters.offset ?? 0) + limit : null },
+    }
   }
 
   async show({ params, response }: HttpContext) {

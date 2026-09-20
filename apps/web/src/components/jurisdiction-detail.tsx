@@ -1,13 +1,14 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { createReport, getJurisdiction } from "@/lib/jurisdictions";
 import { JurisdictionMap } from "./jurisdiction-map";
 
 export function JurisdictionDetail({ slug }: { slug: string }) {
   const jurisdiction = useQuery({ queryKey: ["jurisdiction", slug], queryFn: () => getJurisdiction(slug) });
+  const mapItems = useMemo(() => jurisdiction.data ? [jurisdiction.data] : [], [jurisdiction.data]);
   const [reportMessage, setReportMessage] = useState("");
 
   if (jurisdiction.isPending) return <p>Chargement de la fiche…</p>;
@@ -45,7 +46,7 @@ export function JurisdictionDetail({ slug }: { slug: string }) {
         <p className="mt-2">Source : {item.informationSource}</p>
         <p>Date de vérification : {item.verifiedAt}</p>
       </section>
-      <JurisdictionMap latitude={item.latitude} longitude={item.longitude} name={item.officialName} />
+      <JurisdictionMap jurisdictions={mapItems} />
       <a href={routeUrl} target="_blank" rel="noreferrer" className="rounded-lg bg-emerald-700 px-5 py-3 text-center font-semibold text-white">
         Ouvrir l’itinéraire dans OpenStreetMap
       </a>

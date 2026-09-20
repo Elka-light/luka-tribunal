@@ -5,7 +5,8 @@ export const listJurisdictionsValidator = vine.compile(
     q: vine.string().trim().maxLength(100).optional(),
     province: vine.string().trim().maxLength(120).optional(),
     city: vine.string().trim().maxLength(120).optional(),
-    limit: vine.number().min(1).max(50).optional(),
+    limit: vine.number().withoutDecimals().min(1).max(50).optional(),
+    offset: vine.number().withoutDecimals().min(0).max(100000).optional(),
   })
 )
 

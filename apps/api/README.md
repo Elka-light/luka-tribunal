@@ -8,9 +8,9 @@ la soumission de signalements non nominatifs et les opérations d'administration
 Depuis la racine du monorepo :
 
 ```bash
-pnpm --filter @luka-tribunal/api dev
-pnpm --filter @luka-tribunal/api test
-pnpm --filter @luka-tribunal/api build
+pnpm --filter api dev
+pnpm --filter api test
+pnpm --filter api build
 ```
 
 La configuration locale attendue est documentée dans `.env.example`. Ne jamais

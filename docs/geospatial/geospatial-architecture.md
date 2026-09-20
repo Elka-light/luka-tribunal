@@ -114,3 +114,39 @@ Une carte ne constitue pas à elle seule une preuve de l'exactitude institutionn
 
 Tests obligatoires : bornes, valeurs non numériques, inversion détectable, SRID,
 extraction latitude/longitude, index GiST et exclusion publique des brouillons.
+
+## Extension demandée le 20 septembre 2026 : carte et itinéraires intégrés
+
+La demande utilisateur étend le MVP : les résultats publiés sont chargés par pages
+et affichés sur une carte commune. Un marqueur ou le sélecteur accessible permet de
+choisir « Se rendre à ce tribunal ». La liste reste indépendante des tuiles.
+« Tous les tribunaux » désigne le référentiel publié disponible, pas un inventaire
+national exhaustif : les données actuelles de démonstration sont fictives.
+
+Le départ peut être fourni par géolocalisation volontaire ou clic explicite sur la
+carte. Un repère bleu indique le départ ; un bouton permet de l'effacer. Aucun suivi
+continu, historique, localStorage ou envoi de position à l'API applicative.
+
+Après information sur le transfert, le bouton « Transmettre et calculer
+l’itinéraire » autorise une requête directe du navigateur à FOSSGIS, qui conserve
+les requêtes dans ses journaux. Cette action constitue une exception explicite à
+la règle précédente de position limitée au navigateur ; la seule géolocalisation
+n'autorise pas le transfert au moteur d'itinéraire. Le fournisseur reçoit aussi
+l'adresse réseau. Voir https://routing.openstreetmap.de/about.html.
+
+Profils distincts : `routed-foot`, `routed-bike`, `routed-car`. La durée et la distance
+proviennent de la réponse OSRM, jamais d'une vitesse moyenne appliquée à une ligne
+droite. La géométrie GeoJSON est validée avant conversion vers Leaflet. Les durées
+restent indicatives et n'intègrent pas le trafic en temps réel. Aucun profil moto
+ni horaire ferroviaire n'est fourni : ces modes sont indiqués indisponibles.
+
+Les requêtes sont séquentielles et espacées d'au moins 1,1 seconde par instance de
+page ; elles expirent après 15 secondes et sont annulées lors d'un changement de
+départ, de destination, de mode ou au démontage. Les anciennes réponses sont ignorées.
+Cette limite locale ne garantit pas un quota agrégé entre visiteurs : l'utilisation
+pilote multiutilisateur et les conditions FOSSGIS doivent être validées avant mise
+en ligne, ou remplacées par un service dimensionné. Attribution et lien de
+correction OpenStreetMap sont affichés. La CSP autorise uniquement l'origine choisie.
+
+Les tests de parsing emploient des fixtures, sans solliciter le fournisseur.
+Une panne du fournisseur ne doit ni inventer une durée ni bloquer les fiches.

@@ -9,9 +9,9 @@ l'espace d'administration.
 Depuis la racine du monorepo :
 
 ```bash
-pnpm --filter @luka-tribunal/web dev
-pnpm --filter @luka-tribunal/web test
-pnpm --filter @luka-tribunal/web build
+pnpm --filter web dev
+pnpm --filter web test
+pnpm --filter web build
 ```
 
 Les variables publiques nécessaires sont décrites dans `.env.example`. Aucune

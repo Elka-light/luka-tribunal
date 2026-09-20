@@ -258,3 +258,13 @@ Les éléments suivants doivent être décidés dans les documents ultérieurs a
 - niveaux et libellés exacts du statut de validation.
 
 Ces décisions ne doivent pas élargir implicitement le périmètre défini ici. Toute extension substantielle doit être documentée et validée avant développement.
+
+## Extension explicite du 20 septembre 2026
+
+À la demande du porteur de projet, la carte commune permet de repérer son départ,
+sélectionner un tribunal publié et afficher un trajet avec estimation à pied, à vélo
+ou en voiture. Le calcul reste externe (FOSSGIS/OSRM), mais son tracé est présenté
+dans le site après consentement explicite au transfert des coordonnées. Cette
+extension complète les sections 6.3, 6.4 et 6.6 ; aucun moteur interne ni historique
+n'est ajouté. Les demandes moto et train restent ouvertes faute de profil et de
+données horaires validés. Une durée indisponible est signalée, jamais extrapolée.
