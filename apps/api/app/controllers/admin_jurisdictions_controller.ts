@@ -70,7 +70,7 @@ export default class AdminJurisdictionsController {
       const rows = await trx
         .from('jurisdictions')
         .where('id', params.id)
-        .whereIn('status', ['draft', 'pending_verification'])
+        .whereIn('status', ['draft', 'pending_verification', 'pending_correction'])
         .update({
           slug: payload.slug,
           official_name: payload.officialName,
@@ -100,7 +100,7 @@ export default class AdminJurisdictionsController {
     })
     if (!updated) {
       return response.notFound({
-        error: { code: 'RESOURCE_NOT_FOUND', message: 'Brouillon introuvable.' },
+        error: { code: 'RESOURCE_NOT_FOUND', message: 'Fiche introuvable ou non modifiable.' },
       })
     }
     return { data: { id: params.id } }
@@ -110,7 +110,8 @@ export default class AdminJurisdictionsController {
     const updated = await db.transaction(async (trx) => {
       const rows = await trx
         .from('jurisdictions')
-        .where({ id: params.id, status: 'draft' })
+        .where('id', params.id)
+        .whereIn('status', ['draft', 'pending_correction'])
         .whereNotNull('verified_at')
         .update({ status: 'published', published_at: new Date(), updated_by: auth.user!.id })
       if (rows) {
@@ -132,5 +133,33 @@ export default class AdminJurisdictionsController {
       })
     }
     return { data: { id: params.id, status: 'published' } }
+  }
+
+  async requestCorrection({ params, auth, response }: HttpContext) {
+    const updated = await db.transaction(async (trx) => {
+      const rows = await trx
+        .from('jurisdictions')
+        .where({ id: params.id, status: 'published' })
+        .whereNull('archived_at')
+        .update({ status: 'pending_correction', updated_by: auth.user!.id, updated_at: new Date() })
+      if (rows) {
+        await trx.table('audit_logs').insert({
+          actor_id: auth.user!.id,
+          action: 'jurisdiction.correction_requested',
+          entity_type: 'jurisdiction',
+          entity_id: params.id,
+        })
+      }
+      return rows
+    })
+    if (!updated) {
+      return response.unprocessableEntity({
+        error: {
+          code: 'CORRECTION_NOT_ALLOWED',
+          message: 'Seule une fiche publiée peut être mise en correction.',
+        },
+      })
+    }
+    return { data: { id: params.id, status: 'pending_correction' } }
   }
 }

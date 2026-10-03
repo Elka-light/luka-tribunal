@@ -28,7 +28,8 @@ ni identité d'enfant, ni plainte nominative, ni position d'un visiteur.
 
 - `draft` : non visible publiquement ;
 - `pending_verification` : à vérifier, non visible publiquement ;
-- `published` : visible publiquement si les conditions de publication sont remplies.
+- `published` : visible publiquement si les conditions de publication sont remplies ;
+- `pending_correction` : en cours de correction après publication, non visible publiquement durant la correction (ajouté par ADR-006, 29/09/2026).
 
 ### `report_category`
 

@@ -46,6 +46,10 @@ router
     router.post('/jurisdictions', [AdminJurisdictionsController, 'store'])
     router.put('/jurisdictions/:id', [AdminJurisdictionsController, 'update'])
     router.post('/jurisdictions/:id/publish', [AdminJurisdictionsController, 'publish'])
+    router.post('/jurisdictions/:id/request-correction', [
+      AdminJurisdictionsController,
+      'requestCorrection',
+    ])
   })
   .prefix('/api/v1/admin')
   .use(middleware.auth())

@@ -1,0 +1,23 @@
+# ==========================================================
+# LUKA TRIBUNAL - Docker Compose pour les tests
+# Base de données isolée pour l'exécution des tests
+# ==========================================================
+
+services:
+  postgres-test:
+    image: postgis/postgis:16-3.4
+    container_name: luka-test-postgres
+    environment:
+      POSTGRES_DB: luka_test
+      POSTGRES_USER: luka_test
+      POSTGRES_PASSWORD: test_password_change_me
+    ports:
+      - "127.0.0.1:55433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U luka_test -d luka_test"]
+      interval: 2s
+      timeout: 3s
+      retries: 10
+    # Pas de volume persistent pour les tests (base recréée à chaque fois)
+    tmpfs:
+      - /var/lib/postgresql/data
