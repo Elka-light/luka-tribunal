@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "nom": "TPE de Gombe",
+    "adresse": "N° 100, croisement des avenues Kabambare et Kasa-Vubu, quartier Aketi, commune de Kinshasa",
+    "complement_adresse": "Maison communale de Kinshasa",
+    "ville": "Kinshasa",
+    "province": "Kinshasa",
+    "pays": "République Démocratique du Congo",
+    "geocode": {
+      "lat": -4.3196982,
+      "lon": 15.3424196,
+      "precision": "city_center",
+      "display_name": "Kinshasa, République démocratique du Congo"
+    }
+  },
+  {
+    "id": 2,
+    "nom": "TPE de Ngaliema",
+    "adresse": "Croisement de la route de Matadi et de l'avenue de la Poste, quartier Joli Parc, commune de Ngaliema",
+    "complement_adresse": null,
+    "ville": "Kinshasa",
+    "province": "Kinshasa",
+    "pays": "République Démocratique du Congo",
+    "geocode": {
+      "lat": -4.3196982,
+      "lon": 15.3424196,
+      "precision": "city_center",
+      "display_name": "Kinshasa, République démocratique du Congo"
+    }
+  },
+  {
+    "id": 3,
+    "nom": "TPE de Kalamu",
+    "adresse": "N° A9-AM, avenue Victoire, quartier Matonge, commune de Kalamu",
+    "complement_adresse": "Maison communale de Kalamu",
+    "ville": "Kinshasa",
+    "province": "Kinshasa",
+    "pays": "République Démocratique du Congo",
+    "geocode": {
+      "lat": -4.3196982,
+      "lon": 15.3424196,
+      "precision": "city_center",
+      "display_name": "Kinshasa, République démocratique du Congo"
+    }
+  },
+  {
+    "id": 4,
+    "nom": "TPE de Matete",
+    "adresse": "N° 2, avenue de la Plaine, quartier Masiala, 12e Rue résidentielle, commune de Limete",
+    "complement_adresse": null,
+    "ville": "Kinshasa",
+    "province": "Kinshasa",
+    "pays": "République Démocratique du Congo",
+    "geocode": {
+      "lat": -4.3196982,
+      "lon": 15.3424196,
+      "precision": "city_center",
+      "display_name": "Kinshasa, République démocratique du Congo"
+    }
+  },
+  {
+    "id": 5,
+    "nom": "TPE de Kinkole",
+    "adresse": "Place Sainte-Thérèse, commune de la N'Sele",
+    "complement_adresse": "Palais de justice du TGI/N'Sele",
+    "ville": "Kinshasa",
+    "province": "Kinshasa",
+    "pays": "République Démocratique du Congo",
+    "geocode": {
+      "lat": -4.3196982,
+      "lon": 15.3424196,
+      "precision": "city_center",
+      "display_name": "Kinshasa, République démocratique du Congo"
+    }
+  },
+  {
+    "id": 6,
+    "nom": "TPE de Bunia",
+    "adresse": "Boulevard de la Libération, commune de Mbunya",
+    "complement_adresse": null,
+    "ville": "Bunia",
+    "province": "Ituri",
+    "pays": "République Démocratique du Congo",
+    "geocode": {
+      "lat": 1.5620529,
+      "lon": 30.2478844,
+      "precision": "city_center",
+      "display_name": "Bunia, Ituri, République démocratique du Congo"
+    }
+  },
+  {
+    "id": 7,
+    "nom": "TPE de Mbanza-Ngungu",
+    "adresse": "N° 53, croisement des avenues Monseigneur Nzita et Mobutu, quartier Noki",
+    "complement_adresse": null,
+    "ville": "Mbanza-Ngungu",
+    "province": "Kongo Central",
+    "pays": "République Démocratique du Congo",
+    "geocode": {
+      "lat": -5.2500086,
+      "lon": 14.8666614,
+      "precision": "city_center",
+      "display_name": "Mbanza-Ngungu, Kongo-Central, République démocratique du Congo"
+    }
+  },
+  {
+    "id": 8,
+    "nom": "TPE de Kolwezi",
+    "adresse": "N° 4, avenue Molo, quartier Mununka, commune de Manika",
+    "complement_adresse": null,
+    "ville": "Kolwezi",
+    "province": "Lualaba",
+    "pays": "République Démocratique du Congo",
+    "geocode": {
+      "lat": -10.7169952,
+      "lon": 25.4669918,
+      "precision": "city_center",
+      "display_name": "Kolwezi, Mutshatsha, Lualaba, République démocratique du Congo"
+    }
+  },
+  {
+    "id": 9,
+    "nom": "TPE de Mbuji-Mayi",
+    "adresse": "Avenue du Parquet, quartier Kajiba, commune de Muya",
+    "complement_adresse": null,
+    "ville": "Mbuji-Mayi",
+    "province": "Kasaï-Oriental",
+    "pays": "République Démocratique du Congo",
+    "geocode": {
+      "lat": -6.1258942,
+      "lon": 23.5998111,
+      "precision": "city_center",
+      "display_name": "Mbuji-Mayi, Dibindi, Ville de Mbujimayi, Kasaï-Oriental, République démocratique du Congo"
+    }
+  },
+  {
+    "id": 10,
+    "nom": "TPE de Kananga",
+    "adresse": "Avenue du Produit, localité Kamulumba, quartier Tshinsambi, commune de Kananga",
+    "complement_adresse": null,
+    "ville": "Kananga",
+    "province": "Kasaï-Central",
+    "pays": "République Démocratique du Congo",
+    "geocode": {
+      "lat": -5.8951725,
+      "lon": 22.408589,
+      "precision": "city_center",
+      "display_name": "Kananga, Lulua, Kasaï-Central, République démocratique du Congo"
+    }
+  },
+  {
+    "id": 11,
+    "nom": "TPE de Kalemie",
+    "adresse": "Colline d'État, boulevard Lumumba",
+    "complement_adresse": "En diagonale avec le Palais de justice militaire",
+    "ville": "Kalemie",
+    "province": "Tanganyika",
+    "pays": "République Démocratique du Congo",
+    "geocode": {
+      "lat": -5.9460209,
+      "lon": 29.1967172,
+      "precision": "city_center",
+      "display_name": "Kalemie, Tanganyika, République démocratique du Congo"
+    }
+  },
+  {
+    "id": 12,
+    "nom": "TPE de Bukavu",
+    "adresse": "Quartier Kasali, commune de Kadutu",
+    "complement_adresse": "Maison communale de Kadutu",
+    "ville": "Bukavu",
+    "province": "Sud-Kivu",
+    "pays": "République Démocratique du Congo",
+    "geocode": {
+      "lat": -2.5055839,
+      "lon": 28.8594885,
+      "precision": "city_center",
+      "display_name": "Bukavu, Sud-Kivu, République démocratique du Congo"
+    }
+  }
+]
