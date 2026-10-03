@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import "./globals.css";
 import "leaflet/dist/leaflet.css";
 import { Providers } from "./providers";
+import { Header } from "@/components/header";
 
 export const metadata: Metadata = {
   title: "LUKA TRIBUNAL",
@@ -29,7 +30,10 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html lang="fr" className="h-full antialiased">
       <body className="min-h-full flex flex-col">
-        <Providers>{children}</Providers>
+        <Providers>
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
   );
