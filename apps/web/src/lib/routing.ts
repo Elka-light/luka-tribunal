@@ -1,6 +1,11 @@
 import { z } from "zod";
 
-export const travelModes = { foot: "À pied", bike: "À vélo", car: "En voiture" } as const;
+export const travelModes = {
+  foot: "À pied",
+  bike: "À vélo",
+  car: "En voiture",
+  motorcycle: "En moto"
+} as const;
 export type TravelMode = keyof typeof travelModes;
 export type Position = { latitude: number; longitude: number };
 const positionSchema = z.object({
@@ -62,4 +67,27 @@ export function fetchRoute(start: Position, end: Position, mode: TravelMode, sig
   });
   queue = task;
   return task;
+}
+
+/**
+ * Calcule les itinéraires pour tous les modes de transport en parallèle
+ */
+export async function fetchAllRoutes(
+  start: Position,
+  end: Position,
+  signal: AbortSignal
+): Promise<Record<TravelMode, Route | null>> {
+  const modes: TravelMode[] = ["foot", "bike", "motorcycle", "car"];
+
+  const results = await Promise.allSettled(
+    modes.map((mode) => fetchRoute(start, end, mode, signal))
+  );
+
+  const routes: Record<string, Route | null> = {};
+  modes.forEach((mode, index) => {
+    const result = results[index];
+    routes[mode] = result.status === "fulfilled" ? result.value : null;
+  });
+
+  return routes as Record<TravelMode, Route | null>;
 }
