@@ -6,7 +6,13 @@ import type { Jurisdiction } from "@/lib/jurisdictions";
 import { fetchAllRoutes, fetchRoute, formatDuration, travelModes, type Position, type Route, type TravelMode } from "@/lib/routing";
 import { RouteDistances } from "./route-distances";
 
-export function JurisdictionMap({ jurisdictions }: { jurisdictions: Jurisdiction[] }) {
+interface JurisdictionMapProps {
+  jurisdictions: Jurisdiction[];
+  selectedJurisdictionId?: string | null;
+  onLocationChange?: (hasLocation: boolean) => void;
+}
+
+export function JurisdictionMap({ jurisdictions, selectedJurisdictionId, onLocationChange }: JurisdictionMapProps) {
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<import("leaflet").Map | null>(null);
   const departureMarker = useRef<import("leaflet").CircleMarker | null>(null);
@@ -14,6 +20,7 @@ export function JurisdictionMap({ jurisdictions }: { jurisdictions: Jurisdiction
   const request = useRef<AbortController | null>(null);
   const picking = useRef(false);
   const alive = useRef(true);
+  const markersRef = useRef<Map<string, import("leaflet").Marker>>(new Map());
   const [locationMessage, setLocationMessage] = useState("");
   const [mapError, setMapError] = useState("");
   const [start, setStart] = useState<Position | null>(null);
@@ -49,6 +56,7 @@ export function JurisdictionMap({ jurisdictions }: { jurisdictions: Jurisdiction
         if (active) setMapError("Fond de carte indisponible. La liste des tribunaux reste accessible.");
       }).addTo(instance);
       const bounds: [number, number][] = [];
+      markersRef.current.clear();
       for (const item of jurisdictions) {
         bounds.push([item.latitude, item.longitude]);
         const content = document.createElement("div");
@@ -65,10 +73,11 @@ export function JurisdictionMap({ jurisdictions }: { jurisdictions: Jurisdiction
         });
         content.append(title, button);
         // DOM textContent avoids interpreting institution names as HTML.
-        leaflet.marker([item.latitude, item.longitude], {
+        const marker = leaflet.marker([item.latitude, item.longitude], {
           title: item.officialName, alt: item.officialName,
           icon: leaflet.divIcon({ className: "", html: '<span style="display:block;width:24px;height:24px;border-radius:50%;background:#047857;border:3px solid white;box-shadow:0 0 0 2px #047857"></span>', iconSize: [24, 24], iconAnchor: [12, 12] }),
         }).addTo(instance).bindPopup(content);
+        markersRef.current.set(item.id, marker);
       }
       if (bounds.length) instance.fitBounds(bounds, { padding: [30, 30], maxZoom: 13 });
       instance.on("click", (event: import("leaflet").LeafletMouseEvent) => {
@@ -170,6 +179,28 @@ export function JurisdictionMap({ jurisdictions }: { jurisdictions: Jurisdiction
       calculate();
     }
   }, [start, selected]);
+
+  // Notifier le parent quand la position change
+  useEffect(() => {
+    onLocationChange?.(start !== null);
+  }, [start, onLocationChange]);
+
+  // Effet pour sélectionner automatiquement le tribunal depuis la recherche
+  useEffect(() => {
+    if (selectedJurisdictionId) {
+      const jurisdiction = jurisdictions.find(j => j.id === selectedJurisdictionId);
+      if (jurisdiction && map.current) {
+        clearRoute();
+        setSelected(jurisdiction);
+        // Zoomer sur le tribunal et ouvrir son popup
+        map.current.setView([jurisdiction.latitude, jurisdiction.longitude], 15, { animate: true });
+        const marker = markersRef.current.get(jurisdiction.id);
+        if (marker) {
+          marker.openPopup();
+        }
+      }
+    }
+  }, [selectedJurisdictionId, jurisdictions]);
 
   // Effet pour géolocaliser automatiquement au chargement de la carte
   useEffect(() => {

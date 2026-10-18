@@ -33,6 +33,9 @@ const QUICK_PROVINCES = [
 
 export function JurisdictionSearch() {
   const [filters, setFilters] = useState<SearchFields>(emptyFilters);
+  const [selectedJurisdictionId, setSelectedJurisdictionId] = useState<string | null>(null);
+  const [hasUserLocation, setHasUserLocation] = useState(false);
+
   const form = useForm<SearchFields>({
     resolver: zodResolver(searchSchema),
     defaultValues: emptyFilters,
@@ -45,11 +48,19 @@ export function JurisdictionSearch() {
   const handleProvinceClick = (province: string) => {
     form.setValue("province", province);
     setFilters({ ...emptyFilters, province });
+    setSelectedJurisdictionId(null);
   };
 
   const clearFilters = () => {
     form.reset(emptyFilters);
     setFilters(emptyFilters);
+    setSelectedJurisdictionId(null);
+  };
+
+  const handleViewOnMap = (jurisdictionId: string) => {
+    setSelectedJurisdictionId(jurisdictionId);
+    // Scroll vers la carte
+    document.getElementById("carte-tribunaux")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const hasFilters = filters.q || filters.province || filters.city;
@@ -118,7 +129,16 @@ export function JurisdictionSearch() {
         </button>
       </form>
 
-      {jurisdictions.data && <JurisdictionMap key={JSON.stringify(filters)} jurisdictions={jurisdictions.data} />}
+      {jurisdictions.data && (
+        <div id="carte-tribunaux">
+          <JurisdictionMap
+            key={JSON.stringify(filters)}
+            jurisdictions={jurisdictions.data}
+            selectedJurisdictionId={selectedJurisdictionId}
+            onLocationChange={setHasUserLocation}
+          />
+        </div>
+      )}
 
       <div className="mt-6" aria-live="polite">
         {/* Compteur de résultats */}
@@ -199,16 +219,37 @@ export function JurisdictionSearch() {
                   {[jurisdiction.city, jurisdiction.province].filter(Boolean).join(" — ")}
                 </p>
                 <p className="mt-2 text-sm text-slate-600">{jurisdiction.address}</p>
-                <div className="mt-4 flex items-center justify-between">
+                <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
                   <p className="text-xs text-slate-500">
                     Source : {jurisdiction.informationSource.slice(0, 50)}...
                   </p>
-                  <Link
-                    className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800"
-                    href={`/juridictions/${jurisdiction.slug}`}
-                  >
-                    Voir la fiche →
-                  </Link>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleViewOnMap(jurisdiction.id)}
+                      className="flex items-center gap-1 rounded-lg border-2 border-emerald-700 bg-white px-3 py-2 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-50"
+                    >
+                      <svg
+                        className="h-4 w-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+                        />
+                      </svg>
+                      Voir sur la carte
+                    </button>
+                    <Link
+                      className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800"
+                      href={`/juridictions/${jurisdiction.slug}`}
+                    >
+                      Voir la fiche →
+                    </Link>
+                  </div>
                 </div>
               </li>
             ))}
