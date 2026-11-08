@@ -14,9 +14,9 @@ const sessionConfig = defineConfig({
 
   /**
    * Define how long to keep the session data alive without
-   * any activity.
+   * any activity. Security baseline requires 8 hours maximum.
    */
-  age: '2h',
+  age: '8h',
 
   /**
    * Configuration for session cookie and the

@@ -1,10 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Type checking remains a separate blocking workspace command. Next 16.3.1
-  // cannot parse `tsc --showConfig` under this restricted build environment.
+  // TypeScript validation is enabled in builds and enforced by CI/CD.
+  // The experimental useTypeScriptCli is disabled due to Next.js 16.3.1
+  // compatibility with the workspace build environment.
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   experimental: {
     useTypeScriptCli: false,

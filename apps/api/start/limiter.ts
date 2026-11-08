@@ -1,5 +1,9 @@
 import limiter from '@adonisjs/limiter/services/main'
 
+export const publicApiThrottle = limiter.define('publicApi', ({ request }) =>
+  limiter.allowRequests(120).every('1 minute').usingKey(`public_${request.ip()}`)
+)
+
 export const reportThrottle = limiter.define('reports', ({ request }) =>
   limiter.allowRequests(5).every('1 hour').usingKey(`report_${request.ip()}`).blockFor('1 hour')
 )

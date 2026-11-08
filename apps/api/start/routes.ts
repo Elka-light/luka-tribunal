@@ -15,7 +15,8 @@ const SessionsController = () => import('#controllers/sessions_controller')
 const AdminReportsController = () => import('#controllers/admin_reports_controller')
 const AdminJurisdictionsController = () => import('#controllers/admin_jurisdictions_controller')
 import { middleware } from '#start/kernel'
-const { reportThrottle, loginThrottle, adminThrottle } = await import('#start/limiter')
+const { publicApiThrottle, reportThrottle, loginThrottle, adminThrottle } =
+  await import('#start/limiter')
 
 router.get('/health', async () => {
   return {
@@ -26,8 +27,8 @@ router.get('/health', async () => {
 
 router
   .group(() => {
-    router.get('/jurisdictions', [JurisdictionsController, 'index'])
-    router.get('/jurisdictions/:slug', [JurisdictionsController, 'show'])
+    router.get('/jurisdictions', [JurisdictionsController, 'index']).use(publicApiThrottle)
+    router.get('/jurisdictions/:slug', [JurisdictionsController, 'show']).use(publicApiThrottle)
     router.post('/reports', [ReportsController, 'store']).use(reportThrottle)
   })
   .prefix('/api/v1')

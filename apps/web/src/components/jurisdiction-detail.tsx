@@ -30,6 +30,9 @@ export function JurisdictionDetail({ slug }: { slug: string }) {
     }
   }
 
+  const adminDivisions = [item.municipality, item.territory, item.locality].filter(Boolean);
+  const hasContacts = item.contacts && item.contacts.length > 0;
+
   return (
     <article className="grid gap-8">
       <Link href="/" className="font-semibold text-emerald-800 underline">Retour à la recherche</Link>
@@ -39,16 +42,60 @@ export function JurisdictionDetail({ slug }: { slug: string }) {
         <p className="mt-2 text-sm">{[item.city, item.province].filter(Boolean).join(" — ")}</p>
       </header>
       <section className="rounded-xl bg-amber-50 p-4">
-        Ces informations servent uniquement à l’orientation. Confirmez-les auprès de l’autorité compétente.
+        Ces informations servent uniquement à l'orientation. Confirmez-les auprès de l'autorité compétente.
       </section>
+
+      {adminDivisions.length > 0 && (
+        <section>
+          <h2 className="text-2xl font-bold">Divisions administratives</h2>
+          <ul className="mt-2 space-y-1">
+            {item.municipality && <li>Commune : {item.municipality}</li>}
+            {item.territory && <li>Territoire : {item.territory}</li>}
+            {item.locality && <li>Localité : {item.locality}</li>}
+          </ul>
+        </section>
+      )}
+
+      {item.territorialJurisdiction && (
+        <section>
+          <h2 className="text-2xl font-bold">Ressort territorial</h2>
+          <p className="mt-2">{item.territorialJurisdiction}</p>
+        </section>
+      )}
+
+      {hasContacts && (
+        <section>
+          <h2 className="text-2xl font-bold">Contacts institutionnels</h2>
+          <ul className="mt-2 space-y-2">
+            {item.contacts.map((contact, idx) => (
+              <li key={idx} className="flex gap-2">
+                <span className="font-medium capitalize">{contact.type} :</span>
+                {contact.type === "email" ? (
+                  <a href={`mailto:${contact.value}`} className="text-emerald-700 underline">
+                    {contact.value}
+                  </a>
+                ) : contact.type === "website" ? (
+                  <a href={contact.value} target="_blank" rel="noreferrer" className="text-emerald-700 underline">
+                    {contact.label || contact.value}
+                  </a>
+                ) : (
+                  <span>{contact.value}</span>
+                )}
+                {contact.label && contact.type !== "website" && <span className="text-sm text-gray-600">({contact.label})</span>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       <section>
-        <h2 className="text-2xl font-bold">Fiabilité de l’information</h2>
+        <h2 className="text-2xl font-bold">Fiabilité de l'information</h2>
         <p className="mt-2">Source : {item.informationSource}</p>
         <p>Date de vérification : {item.verifiedAt}</p>
       </section>
       <JurisdictionMap jurisdictions={mapItems} />
       <a href={routeUrl} target="_blank" rel="noreferrer" className="rounded-lg bg-emerald-700 px-5 py-3 text-center font-semibold text-white">
-        Ouvrir l’itinéraire dans OpenStreetMap
+        Ouvrir l'itinéraire dans OpenStreetMap
       </a>
       <section aria-labelledby="report-title">
         <h2 id="report-title" className="text-2xl font-bold">Signaler une information incorrecte</h2>
